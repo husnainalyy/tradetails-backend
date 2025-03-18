@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const adController = require('../controllers/adController');
 const specsController =require('../controllers/Specs');
-const { upload } = require("../config/Aws-s3.JS");
+const { upload } = require("../config/Aws-s3.js");
 const authenticateUserByClerkId = require('../Middlewares/authenticateUserByClerkId');
 
 router.use(authenticateUserByClerkId)
