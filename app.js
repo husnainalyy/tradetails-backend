@@ -15,7 +15,13 @@ dotenv.config();
 const app = express();
 
 // Middleware setup
-app.use(cors());
+app.use(cors({
+    origin: '*',  // Allow all origins for testing
+    methods: 'GET,POST,PUT,DELETE,OPTIONS',
+    allowedHeaders: 'Content-Type,Authorization'
+}));
+app.options('*', cors()); // Handle preflight requests
+
 // Middleware to parse raw JSON body for webhook verification
 app.use('/api/webhooks', bodyParser.raw({ type: 'application/json' }));// Enable Cross-Origin Resource Sharing
 app.use(express.json()); // Parse JSON bodies
