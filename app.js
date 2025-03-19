@@ -15,7 +15,9 @@ dotenv.config();
 const app = express();
 
 // Middleware setup
-app.use(cors());  // Enable Cross-Origin Resource Sharing
+app.use(cors());
+// Middleware to parse raw JSON body for webhook verification
+app.use('/api/webhooks', bodyParser.raw({ type: 'application/json' }));// Enable Cross-Origin Resource Sharing
 app.use(express.json()); // Parse JSON bodies
 
 // Connect to MongoDB
@@ -37,8 +39,7 @@ app.use('/api/webhooks', webhookRoutes);
 
 
 
-// Middleware to parse raw JSON body for webhook verification
-app.use('/api/webhooks', bodyParser.raw({ type: 'application/json' }));
+
 
 // Webhook endpoint
 app.post('/api/webhooks', async (req, res) => {
