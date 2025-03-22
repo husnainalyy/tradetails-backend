@@ -14,15 +14,19 @@ dotenv.config();
 // Initialize Express app   
 const app = express();
 
-app.use(cors({
-    origin: ['https://tradetails-frontend.vercel.app'], // Allow only your frontend
-    methods: 'GET,POST,PUT,DELETE,OPTIONS',
-    allowedHeaders: ['Content-Type', 'Authorization'], // Explicitly allow Authorization header
-    credentials: true // Allow cookies and authentication headers
-}));
+app.use(
+    cors({
+        origin: ["https://tradetails-frontend.vercel.app"], // Allow only your frontend
+        methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+        allowedHeaders: ["Content-Type", "Authorization"], // Ensure Authorization is allowed
+        credentials: true, // Allow cookies & auth headers
+        preflightContinue: false,
+        optionsSuccessStatus: 204,
+    })
+);
 
-app.options('*', cors()); // Handle preflight requests
-
+// Explicitly handle preflight requests
+app.options("*", cors());
 
 // Middleware to parse raw JSON body for webhook verification
 app.use('/api/webhooks', bodyParser.raw({ type: 'application/json' }));// Enable Cross-Origin Resource Sharing
